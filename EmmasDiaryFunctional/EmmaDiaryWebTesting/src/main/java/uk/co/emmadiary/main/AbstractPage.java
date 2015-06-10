@@ -1,5 +1,6 @@
 package uk.co.emmadiary.main;
 
+import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 
 public class AbstractPage {
@@ -14,6 +15,7 @@ public class AbstractPage {
 	public void setUp() {
 		driver.manage().window().maximize();
 		driver.navigate().to(baseUrl);
+	
 		System.out.println("This is the setup");
 		
 	}

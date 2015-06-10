@@ -20,10 +20,19 @@ public class TestEmmasDiaryApp {
 	private LogOutPage logOutPage;
 	private String validEmail = "dine@yahoo.com";
 	private String validPassword = "12345abc";
+	private String invalidPassword = "0987asc";
+	private String invalidEmail = "asdffg@ana.com";
+
+		
+
 	
-//	public TestEmmasDiaryApp(){
-//		
-//	}
+	public TestEmmasDiaryApp(){
+		driver = new FirefoxDriver();
+		abstractPage = new AbstractPage(driver);
+		homePage = new HomePage(driver);
+		logInPage = new LogInPage(driver);
+		logOutPage = new LogOutPage(driver);		
+	}
 	
 	@Before
 	public void preTest(){
@@ -32,23 +41,37 @@ public class TestEmmasDiaryApp {
 		homePage = new HomePage(driver);
 		logInPage = new LogInPage(driver);
 		logOutPage = new LogOutPage(driver);
-		abstractPage.setUp();	
+		abstractPage.setUp();
 	}
-	
 	
 	@After
 	public void postTest(){
 		abstractPage.tearDown();
 	}
 	
+//	@Ignore
 	@Test
-	public void runTest(){
+	public void runRegisterUser(){
 		homePage.supplyLoginDetails();
 		homePage.supplyAboutYouDetails();
 		homePage.verifyUser();
+		
+	}
+	
+	@Test
+	public void runLoginUser(){
 		logInPage.setUserDetails(validEmail, validPassword);
 		logInPage.signInUserWithValidDetails();
-		logOutPage.signOutUser();
+		logInPage.signInUserWithInvalidEmail();
+		logInPage.signInUserWithInvalidPassword();
+		logInPage.signInUserWithInvalidDetails();
+		
 	
 	}
+	
+	@Test
+	public void runLogOutUser(){
+		logOutPage.signOutUser();
+	}
+	
 }
