@@ -1,13 +1,17 @@
 package testOnlineShopping;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.sainsbury.pages.AbstractPage;
-import com.sainsbury.pages.BananaAndGrapePage;
+import com.sainsbury.pages.BananaPage;
 import com.sainsbury.pages.FreshFruitPage;
 import com.sainsbury.pages.FruitAndVegPage;
+import com.sainsbury.pages.GrapePage;
 import com.sainsbury.pages.GroceriesPage;
 import com.sainsbury.pages.HomePage;
 import com.sainsbury.pages.MyAccountPage;
@@ -26,13 +30,17 @@ public class TestSainsburyAddToCart {
 	private GroceriesPage groceriesPage;
 	private FruitAndVegPage fruitAndVegPage;
 	private FreshFruitPage freshFruitPage;
-	private BananaAndGrapePage bananaAndGrapePage;
-	private myTrolleyPage myTrolleyPage;
+	private BananaPage bananaPage;
+	private GrapePage grapePage;
+//	private CheckPostCodePage checkPostCodePage;
+//	private myTrolleyPage myTrolleyPage;
 	private String validEmail = "dine@yahoo.com";
 	private String validPassword = "12345abc";
 	
 	public TestSainsburyAddToCart(){
-		driver = new FirefoxDriver();
+//		driver = new FirefoxDriver();
+		driver = new InternetExplorerDriver();
+		System.setProperty("webdriver.ie.driver", "C:\\Projects\\Softwares\\IEDriverServer_x64_2.46.0\\IEDriverServer.exe");
     	abstractPage = new AbstractPage(driver);
     	homePage = new HomePage(driver);
     	signInPage = new SignInPage(driver);
@@ -41,27 +49,50 @@ public class TestSainsburyAddToCart {
     	groceriesPage = new GroceriesPage(driver);
     	fruitAndVegPage = new FruitAndVegPage(driver);
     	freshFruitPage = new FreshFruitPage(driver);
-    	bananaAndGrapePage = new BananaAndGrapePage(driver);
-    	myTrolleyPage = new myTrolleyPage(driver);
+    	bananaPage = new BananaPage(driver);
+    	grapePage = new GrapePage(driver);
+//    	checkPostCodePage = new CheckPostCodePage(driver);
+//    	SR6 1JA
+//    	myTrolleyPage = new myTrolleyPage(driver);
     	
 	}
 	
-	@Test
-	public void addToCart(){
+	@BeforeMethod
+	public void setUpTest(){
 		abstractPage.setUp();
+	}
+	
+	@AfterMethod
+	public void closeAllTest() throws Throwable{
+		abstractPage.tearDown();
+	}
+	
+	@Test(enabled = true)
+	public void addToBananaCart() throws Throwable{
     	homePage.openMyAccount();
     	signInPage.logInWithValidDetails(validEmail, validPassword);
     	myAccountPage.verifyUserSuccessfulLogIn();
     	groceriesPage.openFruitAndVeg();
     	fruitAndVegPage.openFreshFruit();
     	freshFruitPage.openBananaAndGrapes();
-    	bananaAndGrapePage.openSainsburyFairTradeBananax5();
-    	bananaAndGrapePage.addSainsburyFairTradeBananax5();
-    	bananaAndGrapePage.openSainsburyBlackSeedlessGrape();
-    	bananaAndGrapePage.addSainsburyBlackSeedlessGrape();
-    	myTrolleyPage.checkItemsInTrolley();
+    	bananaPage.openSainsburyFairTradeBananax5();
+    	bananaPage.addSainsburyFairTradeBananax5();
+    	signOutPage.logOutOfAccount();    	
+	}
+  
+	
+    @Test (enabled = false)
+    public void addGrapesToCart() throws Throwable{
+    	homePage.openMyAccount();
+        signInPage.logInWithValidDetails(validEmail, validPassword);
+        myAccountPage.verifyUserSuccessfulLogIn();
+        groceriesPage.openFruitAndVeg();
+        fruitAndVegPage.openFreshFruit();
+        freshFruitPage.openBananaAndGrapes();	
+    	grapePage.openSainsburyBlackSeedlessGrape();
+    	grapePage.addSainsburyBlackSeedlessGrape();
+//    	myTrolleyPage.checkItemsInTrolley();
     	signOutPage.logOutOfAccount();
-    	abstractPage.tearDown();
 	}
 
 }

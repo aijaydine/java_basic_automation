@@ -12,10 +12,13 @@ public class SignOutPage extends AbstractPage {
 
 	public void logOutOfAccount() {
 		try{
-		driver.findElement(By.linkText("Log Out")).click();
-		camera.takeShot("logOutOfAccount");
+			logger.info("The logOutOfAccount started successfully");
+			driver.findElement(By.linkText("Log Out")).click();
+			logger.info("Log out was successful");
+			logger.info("The logOutOfAccount executed successfully");
 		}catch(Throwable t){
-			t.printStackTrace();
+			camera.takeShot("logOutOfAccount");
+			logger.error("The logOutOfAccount encountered an error with the following message: "+t);
 		}
 	
 		

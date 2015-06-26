@@ -1,4 +1,4 @@
-package com.sainsbury.util;
+package com.emmasdiary.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class Screenshot {
     public void takeShot(String screenName){
 	 scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);  
     	try {
-    		FileUtils.copyFile(scrFile, new File("C:\\Projects\\JavaProjects\\java_basic_automation\\SainsburyOnlineShopping\\src\\main\\resources\\com\\sainsbury\\screenshots\\" + screenName + ".jpeg"));
+    		FileUtils.copyFile(scrFile, new File("C:\\Projects\\JavaProjects\\java_basic_automation\\EmmasDiaryWebAppTesting\\com.emmasdiary\\src\\main\\resources\\com\\emmasdiary\\screenshots\\" + screenName + ".jpeg"));
     	}catch (IOException e1) {
     		e1.printStackTrace();
     	} 

@@ -12,9 +12,10 @@ public class HomePage extends AbstractPage {
 	public void openMyAccount() {
 		try{
 		driver.findElement(By.linkText("My Account")).click();
+		logger.info("Home page opened and My Account has been clicked");
 		camera.takeShot("openMyAccount");
 		}catch(Throwable t){
-			t.printStackTrace();
+			logger.error("An error has occurred ");
 		}
 	}
 
